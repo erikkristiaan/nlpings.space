@@ -1,0 +1,50 @@
+.post-card {
+    margin: 3% 0%
+}
+
+.post-card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .post-card-subheader {
+    padding: 0 0 !important;
+} */
+
+/* .post-card-subheader {
+    padding: 0;
+} */
+
+.card {
+    border-radius: 0;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.post-card-subheader {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: 0 1rem;
+
+}
+
+.subtext {
+    margin: 5px 0 5px 0;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.html-body {
+    padding: 1rem 1rem;
+}
+
+.date-posted {
+    color: #888;
+    margin: auto 0;
+    font-size: 14px;
+    font-weight: 400;
+}
