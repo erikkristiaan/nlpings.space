@@ -1,0 +1,27 @@
+  .loader {
+    margin: 3% auto;
+    display: flex;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: relative;
+    background: #FFF;
+    box-shadow: -30px 0 #FFF, 30px 0 #444;
+    box-sizing: border-box;
+    animation: shadowPulse 2s infinite;
+  }
+  
+  @keyframes shadowPulse {
+    33% {
+      background: #FFF;
+      box-shadow: -30px 0 #444, 30px 0 #FFF;
+    }
+    66% {
+      background: #444;
+      box-shadow: -30px 0 #FFF, 30px 0 #FFF;
+    }
+    100% {
+      background: #FFF;
+      box-shadow: -30px 0 #FFF, 30px 0 #444;
+    }
+  }
