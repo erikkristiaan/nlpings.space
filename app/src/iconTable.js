@@ -9,7 +9,7 @@ const getIconTable = () => {
    "BENE": "fa-earth-europe",
    "CAN": "fa-earth-americas",
    "CANUCKS": "fa-earth-americas",
-   "CN": "fa-earth-asia",
+   "CN-TW": "fa-earth-asia",
    "CZECH": "fa-earth-europe",
    "DEN": "fa-earth-europe",
    "EUROPE": "fa-earth-europe",
@@ -22,23 +22,23 @@ const getIconTable = () => {
    "ITALY": "fa-earth-italy",
    "JAPAN": "fa-earth-asia",
    "KOREA": "fa-earth-asia",
-  //  "LATAM"
-  //  "MAMADAS"
-  //  "MIDDLEEAST"
-  //  "NOR"
-  //  "NZ"
-  //  "POLAND"
-  //  "RUS"
-  //  "SCAN"
-  //  "SEA"
-  //  "SWE"
-  //  "SWISS"
-  //  "UK"
-  //  "Ukraine"
-  //  "V4"
-  //  "VODKA"
-  //  "WHATSAPP-FORWARDS"
-  //  "YUROP"
+   "LATAM": "fa-earth-americas",
+   "MAMADAS": "fa-earth-americas",
+   "MIDDLEEAST": "fa-earth-africa",
+   "NOR": "fa-earth-europe",
+   "NZ": "fa-earth-oceania",
+   "POLAND": "fa-earth-europe",
+   "RUS": "fa-earth-europe",
+   "SCAN": "fa-earth-europe",
+   "SEA": "fa-earth-asia",
+   "SWE": "fa-earth-europe",
+   "SWISS": "fa-earth-europe",
+   "UK": "fa-earth-europe",
+   "Ukraine": "fa-earth-europe",
+   "V4": "fa-earth-europe",
+   "VODKA": "fa-earth-europe",
+   "WHATSAPP-FORWARDS": "fa-earth-asia",
+   "YUROP": "fa-earth-europe",
 
     // US States, Cities & Regions
     "BAY-AREA":	"fa-city",
@@ -72,10 +72,6 @@ const getIconTable = () => {
     "USA-VA": "fa-flag-usa",
     "USA-WA": "fa-flag-usa",
     "USA-WI": "fa-flag-usa",
-
-    // World
-    "CAN": "fa-earth-americas",
-    "MAMADAS": "fa-earth-americas",
 
     // Music
     "METAL": "fa-music",
