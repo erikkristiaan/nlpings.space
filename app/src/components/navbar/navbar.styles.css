@@ -1,0 +1,31 @@
+/* .navbar-light .navbar-brand {
+    color: #fff;
+}
+.navbar-light .navbar-brand:hover {
+    color: #fff;
+} */
+
+.navbar, .dropdown-item {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.dropdown-menu {
+    /* height: auto; */
+    width: auto;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.navbar-light .navbar-toggler {
+    border: 0;
+}
+.navbar-light .navbar-toggler:focus {
+    box-shadow: none;
+}
+
+/* .navbar-light .navbar-toggler:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #1f2335;
+} */
