@@ -54,3 +54,14 @@
     font-size: 14px;
     font-weight: 400;
 }
+
+.html-body h1 {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.html-body blockquote {
+    background-color: rgb(238, 238, 238);
+    padding: 14px 14px 1px 14px;
+    border-left: 5px solid rgb(87, 83, 107);
+}
