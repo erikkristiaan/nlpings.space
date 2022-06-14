@@ -1,12 +1,11 @@
 import './App.css';
 import './components/spinner/spinner.styles.css';
 
-import getIconTable from './iconTable';
+import { iconTable } from './iconTable';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React from 'react';
 
-import { TitleBar } from './components/titlebar/titlebar.component';
 import { NavBar } from './components/navbar/navbar.component';
 import { PostCard } from './components/postcard/postcard.component';
 import { Container } from 'react-bootstrap';
@@ -36,35 +35,32 @@ class App extends React.Component {
     fetch(`http://localhost:3001/api/pings/main/${this.state.pageNum}`)
       .then(response => response.json())
       .then(data => {
-        let oldArr = this.state.pings;
+        let oldPings = this.state.pings;
         setTimeout( () => {
-          this.setState( () => { return { pings: oldArr.concat(data), isFetched: true, pageNum: this.state.pageNum + 1}})
-        }, 0); // <- Add 1200 to simulate page loads
+          this.setState( () => { return { pings: oldPings.concat(data), isFetched: true, pageNum: this.state.pageNum + 1}})
+        }, 1200); // <- Add 1200 to simulate page loads
       });
   }
 
   render() {
     const { pings, isFetched } = this.state;
-    const iconTable = getIconTable();
+    // const iconTable = getIconTable();
     return (
-      <div className="App">
-        <TitleBar />
+      <div className='App'>
         <NavBar />
         <Container>
-          {/* <h1 className="title">r/Neoliberal Pings</h1> */}
-
           <InfiniteScroll
             dataLength={pings.length}
             hasMore={true}
             next={this.fetchMoreData}
-            loader={<span className="loader" />}
+            loader={<span className='loader' />}
             scrollThreshold={0.9}
             style={{overflow: 'visible'}}
           >
             <div>
               { isFetched 
                   ? pings.map((ping, index) => <PostCard key={index} ping={ping} icon={iconTable}/>) 
-                  : <span className="loader" /> }
+                  : <span className='loader' /> }
             </div>
           </InfiniteScroll>
         </Container>
