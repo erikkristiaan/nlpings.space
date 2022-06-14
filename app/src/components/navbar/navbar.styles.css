@@ -4,24 +4,47 @@
 .navbar-light .navbar-brand:hover {
     color: #fff;
 } */
+.navbar-div {
+    margin-bottom: 85px;
+}
+
+.navbar {
+    box-shadow: rgba(99, 99, 99, 0.15) 0px 2px 8px 0px;
+}
+
+.navbar-brand {
+    font-size: 25px;
+    font-weight: 500;
+}
 
 .navbar, .dropdown-item {
     font-size: 14px;
     font-weight: 700;
 }
 
-.dropdown-menu {
-    /* height: auto; */
-    width: auto;
-    max-height: 200px;
-    overflow-y: auto;
-    overflow-x: hidden;
+.nav-item {
+    border-radius: 3px;
 }
 
-.navbar-light .navbar-toggler {
+.nav-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #1f2335;
+}
+
+.dropdown-menu {
+    box-shadow: rgba(99, 99, 99, 0.30) 0px 2px 8px 0px;
+    width: auto;
+    max-height: 500px;
+    /* overflow-y: ; */
+    overflow-x: hidden;
+    border: none;
+    padding: 10px 7px 10px 7px;
+}
+
+.navbar-dark .navbar-toggler {
     border: 0;
 }
-.navbar-light .navbar-toggler:focus {
+.navbar-dark .navbar-toggler:focus {
     box-shadow: none;
 }
 
