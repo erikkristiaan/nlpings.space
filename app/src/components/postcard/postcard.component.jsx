@@ -20,7 +20,7 @@ class PostCard extends React.Component {
         <Card className="post-card">
           <Card.Header>
             <div className="post-card-header">
-              <h5><i className={icon}></i> {p.ping_group}</h5>
+              <h5><i className={icon}></i>&nbsp;&nbsp;{p.ping_group}</h5>
               <h6 className="date-posted">{localeDT}</h6>
             </div>
           </Card.Header>
