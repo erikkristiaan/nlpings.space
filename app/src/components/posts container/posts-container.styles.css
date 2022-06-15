@@ -1,0 +1,13 @@
+.btn {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 10px;
+    background-color: #F7F7F7;
+    border: 0;
+    color: #1f2335;
+  }
+  
+  .btn-primary:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #1f2335;
+  }
