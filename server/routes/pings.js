@@ -7,6 +7,26 @@ const nPerPage = 10;
 
 const router = express.Router();
 
+// {'body.md': {$regex: /\bhi\b/, $options: 'i'}}
+
+router.get('/search/:page', async (req, res) => {
+    let db = getDb('user_pinger_db');
+
+    // stores the query into an object.
+    let query = req.query.q;
+    let exp = `\\b${query}\\b`
+
+    //{'body.md': {$regex: /\blgbt\b/, $options: 'i'}
+
+    const result = await db.collection('userpings')
+                        .find({'body.md': new RegExp(exp, 'i')})
+                        .sort({ 'time' : -1 })
+                        .skip(req.params.page > 0 ? ((req.params.page - 1) * nPerPage) : 0 )
+                        .limit(nPerPage)
+                        .toArray();
+    res.json(result);
+});
+
 router.get('/main/:page', async (req, res) => {
         let db = getDb('user_pinger_db');
 
@@ -19,11 +39,13 @@ router.get('/main/:page', async (req, res) => {
         res.json(result);
 });
 
-router.get('/:ping_group/:page', async (req, res) => {
+router.get('/user/:username/:page', async (req, res) => {
     let db = getDb('user_pinger_db');
 
+    let user = req.params.username
+
     const result = await db.collection('userpings')
-                        .find({ ping_group: req.params.ping_group.toUpperCase() })
+                        .find({ 'author': new RegExp(user, 'ig')})
                         .sort({ 'time' : -1 })
                         .skip(req.params.page > 0 ? ((req.params.page - 1) * nPerPage) : 0 )
                         .limit(nPerPage)
@@ -31,14 +53,11 @@ router.get('/:ping_group/:page', async (req, res) => {
     res.json(result);
 });
 
-router.get('/search/:page', async (req, res) => {
+router.get('/:ping_group/:page', async (req, res) => {
     let db = getDb('user_pinger_db');
 
-    // stores the query into an object.
-    const query = req.query;
-
     const result = await db.collection('userpings')
-                        .find(query)
+                        .find({ ping_group: req.params.ping_group.toUpperCase() })
                         .sort({ 'time' : -1 })
                         .skip(req.params.page > 0 ? ((req.params.page - 1) * nPerPage) : 0 )
                         .limit(nPerPage)
