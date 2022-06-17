@@ -3,19 +3,38 @@ import './components/spinner/spinner.styles.css';
 
 import React from 'react';
 
-import { NavBar } from './components/navbar/navbar.component';
+import NavBar from './components/navbar/navbar.component';
 import PostsContainer from './components/posts container/posts-container.component';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 
 // Main app component
 class App extends React.Component {
   render() {
-    // const iconTable = getIconTable();
     return (
-      <div className='App'>
-        <NavBar />
-        <PostsContainer />
-      </div>
+      <Router forceRefresh={true}>
+        <div className='App'>
+          <NavBar />
+
+          <Switch>
+            <Route path="/pinggroup/:pingId" component={props => 
+              <PostsContainer id={props.match.params.pingId} />
+            }/>
+            <Route path="/search" component={props => 
+              <PostsContainer id={'search'} query={props.match.params.pingId}/>
+            }/>
+            <Route path="/">
+              <PostsContainer id={'main'} />
+            </Route>
+          </Switch>
+
+        </div>
+      </Router>
     );
   }
 }
