@@ -2,6 +2,12 @@
     margin: 0% 0% 3% 0%;
 }
 
+@media only screen and (max-width: 575px) {
+    .post-card {
+        margin: 0% 0% 6% 0%;
+    }
+}
+
 .post-card-header {
     display: flex;
     justify-content: space-between;
