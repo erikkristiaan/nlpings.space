@@ -16,51 +16,113 @@ class PostsContainer extends React.Component {
     this.state = {
       pings: [],
       isFetched: false,
-      pageNum: 0,
+      pageNum: 1,
+      hasMore: true,
     }
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3001/api/pings/main/${this.state.pageNum}`)
-      .then(response => response.json())
-      .then(data => {
-        this.setState( () => { return { pings: data, isFetched: true, pageNum: this.state.pageNum + 1}})
-      });
+    // fetch(`http://localhost:3001/api/pings/${this.props.id}/${this.state.pageNum}`)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     this.setState( () => { return { pings: data, isFetched: true, pageNum: this.state.pageNum + 1}})
+    //   });
+    this.fetchMoreData();
   }
 
   fetchMoreData = () => {
-    fetch(`http://localhost:3001/api/pings/main/${this.state.pageNum}`)
+
+    // TODO: Fix this logic
+    const searchParams = new URLSearchParams(window.location.search);
+
+    const author = searchParams.get('a');
+    const anySearchParams = searchParams.get('q');
+
+    let urlString;
+
+    if (author !== null) {
+      urlString = `http://localhost:3001/api/pings/user/${author}/${this.state.pageNum}`
+    } else if (anySearchParams !== null) {
+      urlString = `http://localhost:3001/api/pings/${this.props.id}/${this.state.pageNum}/?q=${anySearchParams}`
+    } else {
+      urlString = `http://localhost:3001/api/pings/${this.props.id}/${this.state.pageNum}`
+    }
+
+    fetch(urlString)
       .then(response => response.json())
       .then(data => {
-        let oldPings = this.state.pings;
+        if (data.length === 0) {
+          this.setState( () => { return { hasMore: false }} )
+        }
         setTimeout( () => {
-          this.setState( () => { return { pings: oldPings.concat(data), isFetched: true, pageNum: this.state.pageNum + 1}})
+          this.setState( () => { return { pings: this.state.pings.concat(data), isFetched: true, pageNum: this.state.pageNum + 1}})
         }, 1200); // <- Add 1200 to simulate page loads
       });
   }
 
-  render() {
-    const { pings, isFetched } = this.state;
+  renderElement = () => {
+    const { pings } = this.state;
+    return (
+      <div>
+        { pings.map((ping, index) => <PostCard key={index} ping={ping} icon={iconTable}/>) }
+      </div>
+    )
+  }
 
+  loader = () => {
+    const { pings, isFetched } = this.state;
+    if (pings.length >= 10 || !isFetched) {
+      return <span className='loader' />
+    }
+  }
+
+  endMessage = () => {
+    const { pings, isFetched } = this.state;
+    if (isFetched) {
+      if (pings.length === 0) {
+        return (
+          <div className='no-content'>
+            {/* <hr /> */}
+            <h5>Can't find any content. 🤔</h5>
+          </div>
+        );
+      }
+      return (
+        <div className='end-message'>
+          <hr />
+          <h5>No more pages to load.</h5>
+        </div>
+      );
+    }
+    return this.loader();
+  }
+
+  render() {
+    const { pings, isFetched, hasMore } = this.state;
     return(
       <Container className='PostsContainer'>
         <InfiniteScroll
           dataLength={pings.length}
-          hasMore={true}
+          endMessage={this.endMessage()}
+          hasMore={hasMore}
           next={this.fetchMoreData}
-          loader={<span className='loader' />}
-          scrollThreshold={0.9}
+          loader={this.loader()}
+          scrollThreshold={0.85}
           style={{overflow: 'visible'}}
         >
           <div>
-            { isFetched 
-                ? pings.map((ping, index) => <PostCard key={index} ping={ping} icon={iconTable}/>) 
-                : <span className='loader' /> }
+            {isFetched ? this.renderElement() : null }
           </div>
         </InfiniteScroll>
       </Container>
     )
   }
 }
+
+
+
+// isFetched ?
+// pings.map((ping, index) => <PostCard key={index} ping={ping} icon={iconTable}/>) : 
+// <span className='loader' /> 
 
 export default PostsContainer;
