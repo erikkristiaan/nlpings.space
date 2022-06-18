@@ -21,6 +21,35 @@
     padding: 0;
 } */
 
+.btn {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 10px;
+    background-color: #F7F7F7;
+    border: 0;
+    color: #1f2335;
+}
+  
+.btn-primary:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    color: #1f2335;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+    background-color: none;
+}
+
+.btn-primary:not(:hover) {
+    color: #1f2335;
+    background-color: #f6f8fa;
+}
+
+.btn-primary:active:focus {
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.08);
+}
 
 .card {
     border-radius: 0;
@@ -70,4 +99,14 @@
     background-color: rgb(238, 238, 238);
     padding: 14px 14px 1px 14px;
     border-left: 5px solid rgb(87, 83, 107);
+}
+
+.post-card-subheader a {
+    text-decoration: none;
+    color: #1f2335;
+}
+
+.post-card-subheader a:hover {
+    text-decoration: underline;
+    color: #0d6efd;
 }
