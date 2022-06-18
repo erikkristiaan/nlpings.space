@@ -4,10 +4,7 @@ import { getDb } from '../db/conn.js';
 
 // const pageNumber = 1;
 const nPerPage = 10;
-
 const router = express.Router();
-
-// {'body.md': {$regex: /\bhi\b/, $options: 'i'}}
 
 router.get('/search/:page', async (req, res) => {
     let db = getDb('user_pinger_db');
@@ -15,8 +12,6 @@ router.get('/search/:page', async (req, res) => {
     // stores the query into an object.
     let query = req.query.q;
     let exp = `\\b${query}\\b`
-
-    //{'body.md': {$regex: /\blgbt\b/, $options: 'i'}
 
     const result = await db.collection('userpings')
                         .find({'body.md': new RegExp(exp, 'i')})
@@ -28,20 +23,19 @@ router.get('/search/:page', async (req, res) => {
 });
 
 router.get('/main/:page', async (req, res) => {
-        let db = getDb('user_pinger_db');
+    let db = getDb('user_pinger_db');
 
-        const result = await db.collection('userpings')
-                            .find()
-                            .sort({ 'time' : -1 })
-                            .skip(req.params.page > 0 ? ((req.params.page - 1) * nPerPage) : 0 )
-                            .limit(nPerPage)
-                            .toArray();
-        res.json(result);
+    const result = await db.collection('userpings')
+                        .find()
+                        .sort({ 'time' : -1 })
+                        .skip(req.params.page > 0 ? ((req.params.page - 1) * nPerPage) : 0 )
+                        .limit(nPerPage)
+                        .toArray();
+    res.json(result);
 });
 
 router.get('/user/:username/:page', async (req, res) => {
     let db = getDb('user_pinger_db');
-
     let user = req.params.username
 
     const result = await db.collection('userpings')
