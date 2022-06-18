@@ -32,9 +32,10 @@ class NavBar extends React.Component {
   render() {
     return(
       <div className="navbar-div">
-        <Navbar bg='dark' variant='dark' expand='lg' fixed='top'>
+
+        <Navbar bg='dark' variant='dark' expand='xxl' fixed='top'>
           <Container fluid>
-            <Navbar.Brand as={Link} to={'/'} >r/neoliberal pings</Navbar.Brand>
+            <Navbar.Brand as={Link} to={'/'} >r/neoliberal</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className='me-auto' navbarScroll>
@@ -62,6 +63,30 @@ class NavBar extends React.Component {
                 >
                   { navbarItems.usa.map( (i) => <NavDropdown.Item as={Link} to={`/pinggroup/${i}`} key={i}>{i}</NavDropdown.Item>) }
                 </NavDropdown>
+
+                <NavDropdown 
+                  title='Politics' 
+                  id='basic-nav-dropdown'
+                  menuVariant='dark'
+                >
+                  { navbarItems.politics.map( (i) => <NavDropdown.Item as={Link} to={`/pinggroup/${i}`} key={i}>{i}</NavDropdown.Item>) }
+                </NavDropdown>                
+
+                <NavDropdown 
+                  title='News' 
+                  id='basic-nav-dropdown'
+                  menuVariant='dark'
+                >
+                  { navbarItems.news.map( (i) => <NavDropdown.Item as={Link} to={`/pinggroup/${i}`} key={i}>{i}</NavDropdown.Item>) }
+                </NavDropdown>    
+
+                <NavDropdown 
+                  title='Sports' 
+                  id='basic-nav-dropdown'
+                  menuVariant='dark'
+                >
+                  { navbarItems.sports.map( (i) => <NavDropdown.Item as={Link} to={`/pinggroup/${i}`} key={i}>{i}</NavDropdown.Item>) }
+                </NavDropdown>    
 
                 <NavDropdown 
                   title='Fun' 
@@ -133,6 +158,7 @@ class NavBar extends React.Component {
             </Navbar.Collapse>
           </Container>
         </Navbar>
+        
       </div>
     );
   }
