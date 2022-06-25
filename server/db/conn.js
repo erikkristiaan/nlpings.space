@@ -1,7 +1,8 @@
+import 'dotenv/config';
 import { MongoClient, Db } from 'mongodb';
 
-const connectionURI = 'mongodb://localhost:27017';
-const dbName = 'user_pinger_db';
+const connectionURI = process.env.DB_URI;
+const dbName = process.env.DB_NAME;
 
 // Create new MongoClient
 const client = new MongoClient(connectionURI);
