@@ -41,11 +41,11 @@ class PostsContainer extends React.Component {
     let urlString;
 
     if (author !== null) {
-      urlString = `http://localhost:3001/api/pings/user/${author}/${this.state.pageNum}`
+      urlString = `https://nlpings.space/api/pings/user/${author}/${this.state.pageNum}`
     } else if (anySearchParams !== null) {
-      urlString = `http://localhost:3001/api/pings/${this.props.id}/${this.state.pageNum}/?q=${anySearchParams}`
+      urlString = `https://nlpings.space/api/pings/${this.props.id}/${this.state.pageNum}/?q=${anySearchParams}`
     } else {
-      urlString = `http://localhost:3001/api/pings/${this.props.id}/${this.state.pageNum}`
+      urlString = `https://nlpings.space/api/pings/${this.props.id}/${this.state.pageNum}`
     }
 
     fetch(urlString)
@@ -56,7 +56,7 @@ class PostsContainer extends React.Component {
         }
         setTimeout( () => {
           this.setState( () => { return { pings: this.state.pings.concat(data), isFetched: true, pageNum: this.state.pageNum + 1}})
-        }, 1200); // <- Add 1200 to simulate page loads
+        }, 0); // <- Add 1200 to simulate page loads
       });
   }
 
