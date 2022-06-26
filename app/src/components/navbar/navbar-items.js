@@ -1,10 +1,8 @@
 export const navbarItems = {
-
     'special': [
         'ANNOUNCEMENTS', 
         'MICSPAM'
     ],
-
     'itl': [
         'AFRICA', 
         'AUS', 
@@ -44,7 +42,6 @@ export const navbarItems = {
         'WHATSAPP-FORWARDS', 
         'YUROP'
     ],
-
     'usa': [
         'BAY-AREA', 
         'USA-ATL', 
@@ -128,7 +125,6 @@ export const navbarItems = {
         'YANG',
         'YIMBY',
     ],
-
     'sports': [
         'BASEBALL',
         'CBB',
@@ -145,7 +141,6 @@ export const navbarItems = {
         'SOCCER',
         'TENNIS',
     ],
-
     'media': [
         'ASOIAF',
         'AVATAR',
@@ -188,7 +183,6 @@ export const navbarItems = {
         'WEST',
         'WORLD-MUSIC',
     ],
-
     'games': [
        '40K',
        'AMONG',
@@ -223,7 +217,6 @@ export const navbarItems = {
        'WORDLE',
        'XCOM',
     ],
-    
     'online': [
         'ASK-NL',
         'BESTOF',
@@ -240,14 +233,12 @@ export const navbarItems = {
         'TACOTUBE',
         'WIKI',
     ],
-
     'news': [
         'EXTREMISM',
         'FIVEY',
         'NPR',
         'GOOD-NEWS',
     ],
-
     'fun': [
         'ALCHOL', 
         'ALTHISTORY', 
@@ -287,7 +278,6 @@ export const navbarItems = {
         'WHOREOLOGY', 
         'WRITING'
     ],
-    
     'health': [
         'ACCOUNTABILITY',
         'ADHD',
@@ -302,7 +292,6 @@ export const navbarItems = {
         'PERSONAL-FINANCE',
         'VEGAN',
     ],
-
     'demographics': [
         'ALPHABET-MAFIA',
         'BALD',
@@ -325,7 +314,6 @@ export const navbarItems = {
         'SHORT',
         'TALL',
     ],
-
     'academia': [
         'ACCOUNTING', 
         'AI', 

@@ -1,10 +1,10 @@
-  .end-message {
+.end-message {
     text-align: center;
     margin: 20px 0 40px 0;
     color: rgba(0, 0, 0, 0.55);
-  }
+}
 
-  .no-content {
+.no-content {
     text-align: center;
     margin: 100px 0 40px 0;
-  }
+}

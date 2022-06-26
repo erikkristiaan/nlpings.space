@@ -1,8 +1,6 @@
 import './postcard.styles.css'
 
 import React from "react";
-// import { render } from "react-dom";
-
 import { Link } from 'react-router-dom';
 
 import { DateTime } from 'luxon';
@@ -40,7 +38,6 @@ class PostCard extends React.Component {
             <Button variant="primary" href={`https://www.reddit.com${p.permalink}?context=10000`}><i className="fa-solid fa-link" /> Permalink</Button>
             <Button variant="primary" href={`https://www.reddit.com${p.permalink}`.slice(0,-8)}><i className="fa-solid fa-arrow-up-short-wide" /> Parent Submission</Button>
             <Button variant="primary" as={Link} to={`/search?a=${p.author}`}><i className="fa-solid fa-user" /> User Pings</Button>
-            {/* <Button variant="primary"><i class="fa-solid fa-arrow-up"></i>Save</Button> */}
           </Card.Footer>
         </Card>
       </div>
@@ -48,4 +45,4 @@ class PostCard extends React.Component {
   };
 }
   
-export { PostCard };
+export default PostCard;

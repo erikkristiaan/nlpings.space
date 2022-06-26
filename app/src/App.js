@@ -1,17 +1,9 @@
-import './App.css';
 import './components/spinner/spinner.styles.css';
-
-import React from 'react';
-
 import NavBar from './components/navbar/navbar.component';
 import PostsContainer from './components/posts container/posts-container.component';
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Main app component
 class App extends React.Component {
