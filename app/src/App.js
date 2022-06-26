@@ -1,6 +1,8 @@
 import './components/spinner/spinner.styles.css';
 import NavBar from './components/navbar/navbar.component';
 import PostsContainer from './components/posts container/posts-container.component';
+import FourOhFour from './components/404/404.component';
+
 
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -20,8 +22,11 @@ class App extends React.Component {
             <Route path="/search" component={props => 
               <PostsContainer id={'search'} query={props.match.params.pingId}/>
             }/>
-            <Route path="/">
+            <Route exact path="/">
               <PostsContainer id={'main'} />
+            </Route>
+            <Route path="*">
+              <FourOhFour />
             </Route>
           </Switch>
 
