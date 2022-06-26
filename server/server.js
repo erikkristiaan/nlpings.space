@@ -14,14 +14,10 @@ const __dirname = path.dirname(__filename);
 connectToDatabase();
 
 const app = express();
-// const router = express.Router();
-app.use(cors());
+
+// app.use(cors(); // enable cors when react app is being run in an seperate development enviroment
 app.use('/api/pings', pings);
 app.use(express.static(path.join(__dirname, '../app/build')));
-
-// app.use((req, res, next) => {
-//     res.redirect('/');
-// });
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../app/build', 'index.html'))

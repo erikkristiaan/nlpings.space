@@ -2,10 +2,10 @@ import express from 'express';
 
 import { getDb } from '../db/conn.js';
 
-// const pageNumber = 1;
 const nPerPage = 10;
 const router = express.Router();
 
+// API endpoints
 router.get('/search/:page', async (req, res) => {
     let db = getDb('user_pinger_db');
 

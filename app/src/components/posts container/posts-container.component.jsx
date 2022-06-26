@@ -1,11 +1,10 @@
 import './posts-container.styles.css'
 import '../spinner/spinner.styles.css';
 import { iconTable } from './iconTable';
+import PostCard from '../postcard/postcard.component';
 
-import InfiniteScroll from 'react-infinite-scroll-component';
 import React from 'react';
-
-import { PostCard } from '../postcard/postcard.component';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { Container } from 'react-bootstrap';
 
 
@@ -22,44 +21,47 @@ class PostsContainer extends React.Component {
   }
 
   componentDidMount() {
-    // fetch(`http://localhost:3001/api/pings/${this.props.id}/${this.state.pageNum}`)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     this.setState( () => { return { pings: data, isFetched: true, pageNum: this.state.pageNum + 1}})
-    //   });
     this.fetchMoreData();
   }
 
   fetchMoreData = () => {
 
-    // TODO: Fix this logic
+    // TODO: Clean up some of this logic
     const searchParams = new URLSearchParams(window.location.search);
 
     const author = searchParams.get('a');
     const anySearchParams = searchParams.get('q');
-
     let urlString;
 
-    if (author !== null) {
-      urlString = `https://nlpings.space/api/pings/user/${author}/${this.state.pageNum}`
-    } else if (anySearchParams !== null) {
-      urlString = `https://nlpings.space/api/pings/${this.props.id}/${this.state.pageNum}/?q=${anySearchParams}`
+    // Add localhost:(port) at beginning of urlString if running in a development environment
+    if (author) {
+      urlString = `/api/pings/user/${author}/${this.state.pageNum}`;
+    } else if (anySearchParams) {
+      urlString = `/api/pings/${this.props.id}/${this.state.pageNum}/?q=${anySearchParams}`;
     } else {
-      urlString = `https://nlpings.space/api/pings/${this.props.id}/${this.state.pageNum}`
+      urlString = `/api/pings/${this.props.id}/${this.state.pageNum}`;
     }
 
     fetch(urlString)
       .then(response => response.json())
       .then(data => {
         if (data.length === 0) {
-          this.setState( () => { return { hasMore: false }} )
-        }
-        setTimeout( () => {
-          this.setState( () => { return { pings: this.state.pings.concat(data), isFetched: true, pageNum: this.state.pageNum + 1}})
-        }, 0); // <- Add 1200 to simulate page loads
+          this.setState(() => (
+            { hasMore: false }
+          ));
+        };
+        this.setState(() => (
+          { pings: this.state.pings.concat(data), 
+            isFetched: true, 
+            pageNum: this.state.pageNum + 1 }
+        ));
+      })
+      .catch(err => {
+        return console.error('There was an error fetching data:', err)
       });
   }
 
+  // map pings array on to individual cards
   renderElement = () => {
     const { pings } = this.state;
     return (
@@ -69,6 +71,7 @@ class PostsContainer extends React.Component {
     )
   }
 
+  // Return css spinner if page is currently loading
   loader = () => {
     const { pings, isFetched } = this.state;
     if (pings.length >= 10 || !isFetched) {
@@ -76,13 +79,13 @@ class PostsContainer extends React.Component {
     }
   }
 
+  // Return a message if response is empty
   endMessage = () => {
     const { pings, isFetched } = this.state;
     if (isFetched) {
       if (pings.length === 0) {
         return (
           <div className='no-content'>
-            {/* <hr /> */}
             <h5>Can't find any content. 🤔</h5>
           </div>
         );
@@ -118,11 +121,5 @@ class PostsContainer extends React.Component {
     )
   }
 }
-
-
-
-// isFetched ?
-// pings.map((ping, index) => <PostCard key={index} ping={ping} icon={iconTable}/>) : 
-// <span className='loader' /> 
 
 export default PostsContainer;

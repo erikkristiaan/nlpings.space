@@ -2,9 +2,8 @@ import './navbar.styles.css';
 import { navbarItems } from './navbar-items';
 
 import React from 'react';
+import { Link, withRouter } from 'react-router-dom'
 import { Nav, Navbar, Container, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-
-import { Link, NavLink, Redirect, useHistory, withRouter } from 'react-router-dom'
 
 class NavBar extends React.Component {
   constructor() {
@@ -15,18 +14,21 @@ class NavBar extends React.Component {
     }
   }
 
+  // Set Query to whatever is in currently in the search box.
   setQuery = (event) => {
     this.setState({query: event.target.value})
   }
 
+  // refresh the page with our query only if query is not empty
   handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state.query);
-    this.props.history.push({
+    const { query } = this.state;
+    event.preventDefault();   // block default submission handling
+    if (query) {               
+      this.props.history.push({
         pathname: "/search",
-        search: `?q=${this.state.query}`,
-        // state: { referrer: '' }
-    });
+        search: `?q=${query}`,
+      });
+    };
   }
 
   render() {
@@ -147,13 +149,12 @@ class NavBar extends React.Component {
               </Nav>
               <Form className="d-flex" onSubmit={(event) => this.handleSubmit(event)}>
                 <FormControl
-                  // type="search"
                   placeholder="Search"
                   className="me-2"
                   aria-label="Search"
                   onChange={this.setQuery}
                 />
-                <Button variant="outline-success" onClick={this.handleSubmit}>Search</Button>
+                <Button variant="outline-success" onClick={(event) => this.handleSubmit(event)}>Search</Button>
               </Form>
             </Navbar.Collapse>
           </Container>
