@@ -50,6 +50,13 @@
     padding: 10px 7px 10px 7px;
 }
 
+@media only screen and (max-width: 1400px) {
+    .dropdown-menu {
+        max-height: none;
+        margin-bottom: 15px;
+    }
+}
+
 .navbar-dark .navbar-toggler {
     border: 0;
 }
