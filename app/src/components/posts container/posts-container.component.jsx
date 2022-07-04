@@ -31,15 +31,15 @@ class PostsContainer extends React.Component {
 
     const author = searchParams.get('a');
     const anySearchParams = searchParams.get('q');
+    const host = ''; // Add localhost:(port) if running in a development environment
     let urlString;
 
-    // Add localhost:(port) at beginning of urlString if running in a development environment
     if (author) {
-      urlString = `/api/pings/user/${author}/${this.state.pageNum}`;
+      urlString = `${host}/api/pings/user/${author}/${this.state.pageNum}`;
     } else if (anySearchParams) {
-      urlString = `/api/pings/${this.props.id}/${this.state.pageNum}/?q=${anySearchParams}`;
+      urlString = `${host}/api/pings/${this.props.id}/${this.state.pageNum}/?q=${anySearchParams}`;
     } else {
-      urlString = `/api/pings/${this.props.id}/${this.state.pageNum}`;
+      urlString = `${host}/api/pings/${this.props.id}/${this.state.pageNum}`;
     }
 
     fetch(urlString)
