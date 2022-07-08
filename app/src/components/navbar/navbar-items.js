@@ -9,7 +9,8 @@ export const navbarItems = {
         'AUS-SYD', 
         'BALKAN', 
         'BENE', 
-        'CAN', 'CANUCKS', 
+        'CAN', 
+        'CANUCKS', 
         'CN-TW', 
         'CZECH', 
         'DEN', 
@@ -342,6 +343,6 @@ export const navbarItems = {
         'SOCIAL-SCIENCE', 
         'STEM', 
         'TEACHERS', 
-        'TRANSLATION'
+        'TRANSLATION',
     ]
 };
