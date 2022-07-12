@@ -10,14 +10,14 @@ const client = new MongoClient(connectionURI);
 let _db;
 
 async function connectToDatabase() {
-    const conn = await client.connect();
-    _db = conn.db(dbName);
+  const conn = await client.connect();
+  _db = conn.db(dbName);
 
-    return client;
+  return client;
 }
 
-function getDb () {
-    return _db;
+function getDb() {
+  return _db;
 }
 
 export { connectToDatabase, getDb };
