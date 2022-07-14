@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function useFetch( location, query, pageNum ) {
+export default function useFetch(location, query, pageNum) {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(false);
   const [pings, setPings] = useState([]);
@@ -18,8 +18,6 @@ export default function useFetch( location, query, pageNum ) {
     setErr(false);
 
     const controller = new AbortController();
-
-    setTimeout(() => {
     axios({
       signal: controller.signal,
       method: 'GET',
@@ -40,11 +38,11 @@ export default function useFetch( location, query, pageNum ) {
         console.log(err);
         setErr(true);
       });
-    }, 250);
 
+    // Abort fetch if we have new fetch call.
     return () => {
       controller.abort();
-    }
+    };
   }, [location, pageNum, query]);
 
   return { loading, err, pings, hasMore };
