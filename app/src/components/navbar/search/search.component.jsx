@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { Form, FormControl, Button } from 'react-bootstrap';
 
 export default function Search() {
   const [query, setQuery] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams();
+  let navigate = useNavigate();
 
   // Set Query to whatever is in currently in the search box.
   const setQueryHandler = (event) => {
@@ -15,7 +14,7 @@ export default function Search() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (query) {
-      setSearchParams({ q: query });
+      navigate(`/search?q=${query}`, { replace: true });
     }
   };
 
