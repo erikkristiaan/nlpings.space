@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function useFetch(pingId, pageNum) {
+export default function useFetch( location, query, pageNum ) {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(false);
   const [pings, setPings] = useState([]);
@@ -10,7 +10,7 @@ export default function useFetch(pingId, pageNum) {
   // Reset to empty array on location change
   useEffect(() => {
     setPings([]);
-  }, [pingId]);
+  }, [location, query]);
 
   // Fetch Data
   useEffect(() => {
@@ -23,9 +23,9 @@ export default function useFetch(pingId, pageNum) {
     axios({
       signal: controller.signal,
       method: 'GET',
-      url: `http://localhost:3001/api/pings/${pingId}/${pageNum}`
+      url: `http://localhost:3001/api/pings/${location}/${pageNum}`,
+      params: { q: query }
     })
-      // .then((res) => res.json())
       .then((res) => {
         // concatenate pings list
         setPings((prevPings) => [...prevPings, ...res.data]);
@@ -45,7 +45,7 @@ export default function useFetch(pingId, pageNum) {
     return () => {
       controller.abort();
     }
-  }, [pingId, pageNum]);
+  }, [location, pageNum, query]);
 
   return { loading, err, pings, hasMore };
 }
