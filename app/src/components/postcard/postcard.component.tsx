@@ -5,22 +5,20 @@ import dayjs from 'dayjs';
 import parse from 'html-react-parser';
 import { Card, Button } from 'react-bootstrap';
 
+import { FetchInterface } from '../../hooks/useFetch';
 import './postcard.styles.css';
 
-export default function PostCard({ icon, ping }) {
+interface InputInterface {
+  icon: Record<string, string>;
+  ping: FetchInterface;
+}
 
-  const { 
-    author,
-    body,
-    parent_submission,
-    permalink,
-    ping_group,
-    time,
-  } = ping;
+const PostCard = ({ icon, ping }: InputInterface) => {
+  const { author, body, parent_submission, permalink, ping_group, time } = ping;
 
   const unixTime = dayjs.unix(time);
   const formattedTime = dayjs(unixTime).format('MMM D, YYYY, h:mm A');
-  const iconString = `fa-solid ${icon[ping_group]}`;
+  const iconString = `fa-solid ${icon[ping_group as keyof InputInterface]}`;
 
   return (
     <>
@@ -34,15 +32,15 @@ export default function PostCard({ icon, ping }) {
           </div>
         </Card.Header>
         <Card.Body>
-            <Card className='post-card-subheader'>
-              <Card.Body className='post-card-subheader-body'>
-                <p className='subtext'>
-                  posted by{' '}
-                  <a href={`https://www.reddit.com/u/${author}`}>u/{author}</a>{' '}
-                  in {parent_submission}
-                </p>
-              </Card.Body>
-            </Card>
+          <Card className='post-card-subheader'>
+            <Card.Body className='post-card-subheader-body'>
+              <p className='subtext'>
+                posted by{' '}
+                <a href={`https://www.reddit.com/u/${author}`}>u/{author}</a> in{' '}
+                {parent_submission}
+              </p>
+            </Card.Body>
+          </Card>
           <div className='html-body'>{parse(body.html)}</div>
         </Card.Body>
         <Card.Footer>
@@ -58,15 +56,15 @@ export default function PostCard({ icon, ping }) {
           >
             <i className='fa-solid fa-arrow-up-short-wide' /> Parent Submission
           </Button>
-          <Button 
-            variant='primary' 
-            as={Link} 
-            to={`/search?a=${author}`}
-          >
-            <i className='fa-solid fa-user' /> User Pings
-          </Button>
+          <Link to={`/search?a=${author}`}>
+            <Button variant='primary'>
+              <i className='fa-solid fa-user' /> User Pings
+            </Button>
+          </Link>
         </Card.Footer>
       </Card>
     </>
   );
-}
+};
+
+export { PostCard };

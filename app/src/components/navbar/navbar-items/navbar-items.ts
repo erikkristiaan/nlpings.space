@@ -1,4 +1,20 @@
-export const navbarItems = {
+interface NavbarInterface {
+    special: string[];
+    itl: string[];
+    usa: string[];
+    politics: string[];
+    sports: string[];
+    media: string[];
+    games: string[];
+    online: string[];
+    news: string[];
+    fun: string[];
+    health: string[];
+    demographics: string[];
+    academia: string[];
+}
+
+const navbarItems: NavbarInterface = {
     'special': [
         'ANNOUNCEMENTS', 
         'MICSPAM'
@@ -346,3 +362,5 @@ export const navbarItems = {
         'TRANSLATION',
     ]
 };
+
+export { navbarItems, NavbarInterface };

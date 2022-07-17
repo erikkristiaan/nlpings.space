@@ -1,4 +1,9 @@
-export const navDropdownOptions = [
+interface EnumNavOption {
+    title: string;
+    arrayToFetch: string;
+}
+
+const navDropdownOptions: EnumNavOption[] = [
     { title: 'Special', arrayToFetch: 'special' },
     { title: 'International', arrayToFetch: 'itl' },
     { title: 'United States', arrayToFetch: 'usa' },
@@ -13,3 +18,6 @@ export const navDropdownOptions = [
     { title: 'Demographics', arrayToFetch: 'demographics' },
     { title: 'Academia & Work', arrayToFetch: 'academia' }
 ];
+
+
+export { EnumNavOption, navDropdownOptions };

@@ -1,4 +1,8 @@
-export const iconTable = {
+// interface IconTableInterface {
+//   [key: string]: string;
+// }
+
+const iconTable: Record<string, string> = {
 
   // Special
   'ANNOUNCEMENTS': 'fa-bullhorn',
@@ -351,3 +355,5 @@ export const iconTable = {
   'TEACHERS': 'fa-person-chalkboard',
   'TRANSLATION': 'fa-language'
 };
+
+export { iconTable };

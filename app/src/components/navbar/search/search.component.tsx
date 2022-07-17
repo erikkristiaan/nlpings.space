@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, FormControl, Button } from 'react-bootstrap';
 
-export default function Search() {
+const Search = () => {
   const [query, setQuery] = useState('');
   let navigate = useNavigate();
 
-  // Set Query to whatever is in currently in the search box.
-  const setQueryHandler = (event) => {
+  // Set Query to whatever is in currently in the search box
+  const setQueryHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  // If we have a submitted query, navigate to search route
+  const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (query) {
       navigate(`/search?q=${query}`, { replace: true });
@@ -31,4 +32,6 @@ export default function Search() {
       </Button>
     </Form>
   );
-}
+};
+
+export { Search };

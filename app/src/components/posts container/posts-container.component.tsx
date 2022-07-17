@@ -1,23 +1,24 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
 import { iconTable } from './iconTable';
-import PostCard from '../postcard/postcard.component';
-import useFetch from '../../hooks/useFetch';
+import { PostCard } from '../postcard/postcard.component';
+
+import { useFetch } from '../../hooks/useFetch';
 
 import './posts-container.styles.css';
 import '../spinner/spinner.styles.css';
 
-export default function PostsContainer() {
+const PostsContainer = () => {
   const { pingId } = useParams();
   const [searchParams] = useSearchParams();
-  const [pageNum, setPageNum] = useState(0);
+  const [pageNum, setPageNum] = useState<number>(0);
 
   // URL params
-  let location = '';
-  const query = searchParams.get('q');
-  const author = searchParams.get('a');
+  let location: string = '';
+  const query: string | null = searchParams.get('q');
+  const author: string | null = searchParams.get('a');
 
   if (author) {
     location = 'user/' + author;
@@ -36,9 +37,9 @@ export default function PostsContainer() {
   useEffect(() => setPageNum(0), [location, query]);
 
   // Observer for infiniteScroll
-  const observer = useRef();
+  const observer = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useCallback(
-    (element) => {
+    (element: HTMLDivElement) => {
       if (!loading) {
         if (observer.current) {
           observer.current.disconnect();
@@ -90,20 +91,24 @@ export default function PostsContainer() {
   } else if (!loading && pings.length === 0) {
     return <NoContent />;
   }
+
   return (
     <Container className='PostsContainer'>
-      {pings.map((ping, index) => {
-        if (index + 2 === pings.length) {
+      {pings.map((ping, idx: number) => {
+        // If second last index, load card with observer for infinitescroll
+        if (idx + 2 === pings.length) {
           return (
-            <div ref={loadMoreRef} key={index}>
-              <PostCard key={index} ping={ping} icon={iconTable} />
+            <div ref={loadMoreRef} key={idx}>
+              <PostCard key={idx} ping={ping} icon={iconTable} />
             </div>
           );
         }
-        return <PostCard key={index} ping={ping} icon={iconTable} />;
+        return <PostCard key={idx} ping={ping} icon={iconTable} />;
       })}
       {loading && <Loader />}
       {!hasMore && !loading && <EndMessage />}
     </Container>
   );
-}
+};
+
+export { PostsContainer };

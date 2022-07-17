@@ -1,8 +1,9 @@
 import './components/spinner/spinner.styles.css';
-import NavBar from './components/navbar/navbar.component';
-import PostsContainer from './components/posts container/posts-container.component';
-import FourOhFour from './components/404/404.component';
 
+import { NavBar } from './components/navbar/navbar.component';
+
+import { PostsContainer } from './components/posts container/posts-container.component';
+import { FourOhFour } from './components/404/404.component';
 
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
@@ -12,11 +13,10 @@ export default function App () {
   return (
     <div className='App'>
       <NavBar />
-
       <Routes>
         <Route 
-          path="/" 
-          element={ <PostsContainer id={'main'} /> }
+          path="/"
+          element={ <PostsContainer /> }
         />
         <Route 
           path="/pinggroup/:pingId" 
