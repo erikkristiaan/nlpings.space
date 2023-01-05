@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  database:
+    image: mongo:latest
+    container_name: mongo_db
+    environment:
+      MONGO_INITDB_DATABASE: ${ENV_DATABASE_NAME}
+      MONGO_INITDB_ROOT_USERNAME: ${ENV_DATABASE_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${ENV_DATABASE_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+  scraper:
+    build: ./scripts
+    container_name: groupbot_scraper
+    env_file:
+      - .env
+    depends_on:
+      - database
+  server:
+    build: ./server
+    container_name: express_server
+    environment:
+      ENV_SERVER_PORT: ${ENV_SERVER_PORT}
+      ENV_DATABASE_NAME: ${ENV_DATABASE_NAME}
+      ENV_DATABASE_USERNAME: ${ENV_DATABASE_USERNAME}
+      ENV_DATABASE_PASSWORD: ${ENV_DATABASE_PASSWORD}
+    ports:
+      - ${ENV_SERVER_PORT}:${ENV_SERVER_PORT}
+    expose:
+      - ${ENV_SERVER_PORT}
+    depends_on:
+      - database

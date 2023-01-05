@@ -1,4 +1,3 @@
-#!/bin/env python
 import os
 import praw
 import pymongo
@@ -13,7 +12,7 @@ def main():
         add_to_database(db, json_entries)
     client.close()
     
-    print(f"Completed database update at: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+    print(f'Completed database update at: {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}')
 
 
 def add_to_database(db, json_entries):
@@ -27,57 +26,66 @@ def add_to_database(db, json_entries):
 
 def get_json_entries(r, db):
     # Grab json entries from groupbot
-
     groupbot = r.redditor('groupbot')
     db_entries = []
 
     for comment in groupbot.comments.new(limit=None):
         gb_strings = comment.body.split()
 
-        if gb_strings[1] == 'members' and gb_strings[2] == 'of': 
-            ping_group = gb_strings[3]
+        # FIXME: Add proper validation and error handling here
+        # try/except added as script will break when gb_strings out of range
+        try:
+            if gb_strings[3] == '|':
+                ping_group = gb_strings[1]
 
-            parent_id = comment.parent_id[3:]
-            parent = r.comment(parent_id)
+                parent_id = comment.parent_id[3:]
+                parent = r.comment(parent_id)
 
-            if not db.userpings.count_documents({'child_id': comment.id}, limit=1):
-                if parent.author is not None:
+                if not db.userpings.count_documents({'child_id': comment.id}, limit=1):
+                    if parent.author is not None:
 
-                    ping_json = {
-                        'id': parent.id,
-                        'child_id': comment.id,
-                        'ping_group': ping_group,
-                        'author': parent.author.name,
-                        'body': parent.body,
-                        'distinguished': parent.distinguished,
-                        'edited': parent.edited,
-                        'permalink': parent.permalink,
-                        'time': parent.created_utc,
-                        'parent_submission': parent.submission.title,
-                        'body': {'md': parent.body, 'html': parent.body_html}
-                    }
-                    db_entries.append(ping_json)
-            else:
-                break
-
+                        ping_json = {
+                            'id': parent.id,
+                            'child_id': comment.id,
+                            'ping_group': ping_group,
+                            'author': parent.author.name,
+                            'body': parent.body,
+                            'distinguished': parent.distinguished,
+                            'edited': parent.edited,
+                            'permalink': parent.permalink,
+                            'time': parent.created_utc,
+                            'parent_submission': parent.submission.title,
+                            'body': {'md': parent.body, 'html': parent.body_html}
+                        }
+                        db_entries.append(ping_json)
+                else:
+                    break
+        except:
+            pass
     return db_entries
 
 
 def get_clients():
+    db_name = os.getenv('ENV_DATABASE_NAME')
+    db_user = os.getenv('ENV_DATABASE_USERNAME')
+    db_pass = os.getenv('ENV_DATABASE_PASSWORD')
+
     # Get an instance of the mongoDb client and reddit praw client.
     try:
-        mdb_client = pymongo.MongoClient()
-        database = mdb_client[os.getenv('DATABASENAME')]
+        mdb_client = pymongo.MongoClient(
+                f'mongodb://{db_user}:{db_pass}@mongo_db:27017/?authMechanism=DEFAULT'
+            )
+        database = mdb_client[db_name]
     except pymongo.errors.ConnectionFailure as cf:
         print(f'Error - Could not get an instance of MongoClient: {cf}')
 
     try:
         reddit = praw.Reddit(
-            client_id=os.getenv('CLIENT_ID'),
-            client_secret=os.getenv('CLIENT_SECRET'),
-            password=os.getenv('PASSWORD'),
+            client_id=os.getenv('ENV_REDDIT_API_CLIENT_ID'),
+            client_secret=os.getenv('ENV_REDDIT_API_CLIENT_SECRET'),
+            password=os.getenv('ENV_REDDIT_PASSWORD'),
             user_agent='groupbot-scraper',
-            username=os.getenv('USERNAME'),
+            username=os.getenv('ENV_REDDIT_USERNAME')
         )
     except Exception as e:
         print(f'Error - Could not get an instance of Reddit: {e}')
