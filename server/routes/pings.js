@@ -1,5 +1,4 @@
 import express from 'express';
-
 import { getDb } from '../db/conn.js';
 
 const nPerPage = 10;
@@ -7,7 +6,7 @@ const router = express.Router();
 
 // API endpoints
 router.get('/search/:page', async (req, res) => {
-  let db = getDb('user_pinger_db');
+  let db = getDb();
 
   // stores the query into an object.
   let query = req.query.q;
@@ -25,7 +24,7 @@ router.get('/search/:page', async (req, res) => {
 });
 
 router.get('/main/:page', async (req, res) => {
-  let db = getDb('user_pinger_db');
+  let db = getDb();
 
   const result = await db
     .collection('userpings')
@@ -39,7 +38,7 @@ router.get('/main/:page', async (req, res) => {
 });
 
 router.get('/user/:username/:page', async (req, res) => {
-  let db = getDb('user_pinger_db');
+  let db = getDb();
   let user = req.params.username;
 
   const result = await db
@@ -54,7 +53,7 @@ router.get('/user/:username/:page', async (req, res) => {
 });
 
 router.get('/:ping_group/:page', async (req, res) => {
-  let db = getDb('user_pinger_db');
+  let db = getDb();
 
   const result = await db
     .collection('userpings')
