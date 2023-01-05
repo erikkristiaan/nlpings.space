@@ -19,7 +19,9 @@ services:
     depends_on:
       - database
   server:
-    build: ./server
+    build: 
+      context: .
+      dockerfile: ./server/Dockerfile
     container_name: express_server
     environment:
       ENV_SERVER_PORT: ${ENV_SERVER_PORT}

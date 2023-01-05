@@ -19,16 +19,10 @@ connectToDatabase();
 
 app.use('/api/pings', pings);
 
-// TODO: Add these back when front-end react app is added to build scripts
-// app.use(express.static(path.join(__dirname, '../app/build')));
+app.use(express.static(path.join(__dirname, '/build')));
 
-// app.get('/*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../app/build', 'index.html'));
-// });
-
-// Debugging
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/build', 'index.html'));
 });
 
 app.listen(process.env.ENV_SERVER_PORT, () => {

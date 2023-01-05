@@ -2,4 +2,5 @@
 **/build
 **/data
 .env
+.vscode
 jsconfig.json
