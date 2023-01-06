@@ -27,7 +27,7 @@ A simple web application which tracks reddit groupbot pings using react, express
         - From the reddit account you intend to use, navigate to App Preferences: https://old.reddit.com/prefs/apps
         - Click `create another app` at the bottom.
         - [Fill out the required details.](https://i.imgur.com/4QbEmu7.png) Make sure to select `script` and click `create app`.
-        - Add the newly generated reddit API client ID and secret to the `.env` file.
+        - [Add the newly generated reddit API client ID and secret to the `.env` file.](https://i.imgur.com/6yoK823.png)
 
 3. Build and run the containers with docker.
     ```
