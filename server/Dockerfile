@@ -4,6 +4,7 @@ FROM node:18-alpine AS app-builder
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
+COPY .env ./
 COPY ./app ./
 RUN npm install
 RUN npm install react-scripts@5.0.1 -g

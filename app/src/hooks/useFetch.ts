@@ -42,11 +42,13 @@ const useFetch = (
     setLoading(true);
     setErr(false);
 
-    const controller = new AbortController();
+    const controller: AbortController = new AbortController();
+    const url_port: string | undefined = process.env.REACT_APP_SERVER_PORT;
+
     axios({
       signal: controller.signal,
       method: 'GET',
-      url: `http://localhost:3001/api/pings/${location}/${pageNum}`,
+      url: `http://localhost:${url_port}/api/pings/${location}/${pageNum}`,
       params: { q: query }
     })
       .then((res: AxiosResponse): void => {
